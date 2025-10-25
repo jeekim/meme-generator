@@ -1,0 +1,5 @@
+{
+  "name": "AI Magic Meme Generator",
+  "description": "Create hilarious memes in seconds. Upload an image or use a template, then use the 'Magic Caption' button to get AI-generated captions. You can even edit your meme with text prompts using Gemini!",
+  "requestFramePermissions": []
+}

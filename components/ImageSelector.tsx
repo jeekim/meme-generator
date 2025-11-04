@@ -9,10 +9,17 @@ interface ImageSelectorProps {
   onImageSelect: (imageState: ImageState) => void;
 }
 
+/**
+ * ImageSelector component for choosing a meme image
+ * Allows users to upload custom images or select from predefined templates
+ */
 export function ImageSelector({ onImageSelect }: ImageSelectorProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState<string | null>(null);
 
+  /**
+   * Handles file input changes when user selects a file
+   */
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -24,6 +31,9 @@ export function ImageSelector({ onImageSelect }: ImageSelectorProps) {
     }
   };
 
+  /**
+   * Handles template selection by fetching the template image
+   */
   const handleTemplateClick = async (url: string) => {
     try {
         const response = await fetch(url);
@@ -37,6 +47,9 @@ export function ImageSelector({ onImageSelect }: ImageSelectorProps) {
     }
   };
   
+  /**
+   * Processes an image file and extracts its properties
+   */
   const processImageFile = (file: File) => {
     setError(null);
     const reader = new FileReader();

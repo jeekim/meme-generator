@@ -1,7 +1,9 @@
-
 import React from 'react';
 import { SparklesIcon } from './icons';
 
+/**
+ * Header component displaying the application title and branding
+ */
 export function Header() {
   return (
     <header className="w-full py-4 px-4 md:px-8 border-b border-gray-700/50 bg-gray-900/50 backdrop-blur-sm">

@@ -1,3 +1,7 @@
+/**
+ * Meme template constants
+ * Contains predefined popular meme templates
+ */
 
 import type { MemeTemplate } from './types';
 

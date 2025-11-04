@@ -1,4 +1,3 @@
-
 import React, { useRef, useState } from 'react';
 import { MEME_TEMPLATES } from '../constants';
 import type { ImageState } from '../types';
@@ -36,17 +35,17 @@ export function ImageSelector({ onImageSelect }: ImageSelectorProps) {
    */
   const handleTemplateClick = async (url: string) => {
     try {
-        const response = await fetch(url);
-        if (!response.ok) throw new Error('Network response was not ok');
-        const blob = await response.blob();
-        const file = new File([blob], "template.jpg", { type: blob.type });
-        processImageFile(file);
+      const response = await fetch(url);
+      if (!response.ok) throw new Error('Network response was not ok');
+      const blob = await response.blob();
+      const file = new File([blob], 'template.jpg', { type: blob.type });
+      processImageFile(file);
     } catch (e) {
-        console.error("Failed to fetch template image:", e);
-        setError(ERROR_MESSAGES.TEMPLATE_LOAD_FAILED);
+      console.error('Failed to fetch template image:', e);
+      setError(ERROR_MESSAGES.TEMPLATE_LOAD_FAILED);
     }
   };
-  
+
   /**
    * Processes an image file and extracts its properties
    */
@@ -64,12 +63,12 @@ export function ImageSelector({ onImageSelect }: ImageSelectorProps) {
         });
       };
       img.onerror = () => {
-          setError(ERROR_MESSAGES.IMAGE_READ_FAILED);
+        setError(ERROR_MESSAGES.IMAGE_READ_FAILED);
       };
       img.src = e.target?.result as string;
     };
     reader.onerror = () => {
-        setError(ERROR_MESSAGES.FILE_READ_FAILED);
+      setError(ERROR_MESSAGES.FILE_READ_FAILED);
     };
     reader.readAsDataURL(file);
   };
@@ -77,8 +76,10 @@ export function ImageSelector({ onImageSelect }: ImageSelectorProps) {
   return (
     <div className="bg-gray-800/50 border border-gray-700 rounded-2xl p-6 md:p-8 text-center">
       <h2 className="text-3xl font-bold mb-4 text-white">Create Your Meme</h2>
-      <p className="text-gray-400 mb-8 max-w-2xl mx-auto">Start by uploading your own image or choose one of our popular templates below.</p>
-      
+      <p className="text-gray-400 mb-8 max-w-2xl mx-auto">
+        Start by uploading your own image or choose one of our popular templates below.
+      </p>
+
       {error && <p className="text-red-400 mb-4">{error}</p>}
 
       <input
@@ -100,7 +101,11 @@ export function ImageSelector({ onImageSelect }: ImageSelectorProps) {
         <h3 className="text-xl font-semibold mb-6 text-gray-300">Or Select a Template</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {MEME_TEMPLATES.map((template) => (
-            <div key={template.id} className="group cursor-pointer" onClick={() => handleTemplateClick(template.url)}>
+            <div
+              key={template.id}
+              className="group cursor-pointer"
+              onClick={() => handleTemplateClick(template.url)}
+            >
               <img
                 src={template.url}
                 alt={template.name}

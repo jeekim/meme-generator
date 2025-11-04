@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { ImageSelector } from './components/ImageSelector';
 import { MemeEditor } from './components/MemeEditor';
@@ -16,7 +15,7 @@ import {
 
 export default function App() {
   const [error, setError] = useState<string | null>(null);
-  
+
   // Custom hooks for separated concerns
   const { image, setImage, handleImageSelect, handleReset } = useImageState();
   const { topText, bottomText, setTopText, setBottomText, resetText } = useMemeText();
@@ -27,11 +26,7 @@ export default function App() {
     handleGenerateCaptions: generateCaptions,
     resetCaptions,
   } = useCaptionGenerator();
-  const {
-    isEditingImage,
-    error: editError,
-    handleEditImage: editImageWithHook,
-  } = useImageEditor();
+  const { isEditingImage, error: editError, handleEditImage: editImageWithHook } = useImageEditor();
   const downloadMeme = useMemeDownload();
 
   // Combined error from different sources
@@ -97,7 +92,10 @@ export default function App() {
       <main className="flex-grow flex flex-col items-center justify-center p-4 md:p-8">
         <div className="w-full max-w-7xl mx-auto">
           {displayError && (
-            <div className="bg-red-500/20 border border-red-500 text-red-300 px-4 py-3 rounded-lg relative mb-6 text-center" role="alert">
+            <div
+              className="bg-red-500/20 border border-red-500 text-red-300 px-4 py-3 rounded-lg relative mb-6 text-center"
+              role="alert"
+            >
               <span className="block sm:inline">{displayError}</span>
             </div>
           )}

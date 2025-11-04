@@ -35,6 +35,7 @@ export default [
         File: 'readonly',
         fetch: 'readonly',
         SVGSVGElement: 'readonly',
+        __dirname: 'readonly',
       },
     },
     plugins: {
@@ -68,6 +69,6 @@ export default [
     },
   },
   {
-    ignores: ['dist/**', 'node_modules/**', '*.config.js', '*.config.ts'],
+    ignores: ['dist/**', 'node_modules/**'],
   },
 ];

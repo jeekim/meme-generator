@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
-import type { ImageState } from '../App';
-import type { MemeCaption } from '../types';
+import type { ImageState, MemeCaption } from '../types';
 import { SparklesIcon, EditIcon, DownloadIcon, BackIcon } from './icons';
 import { Spinner } from './Spinner';
 
@@ -21,6 +20,10 @@ interface MemeEditorProps {
   onReset: () => void;
 }
 
+/**
+ * MemeEditor component for editing meme text and using AI features
+ * Provides controls for text editing, caption generation, image editing, and download
+ */
 export function MemeEditor({
   image,
   topText,
@@ -38,6 +41,9 @@ export function MemeEditor({
 }: MemeEditorProps) {
   const [editPrompt, setEditPrompt] = useState('');
 
+  /**
+   * Handles the image edit form submission
+   */
   const handleEditSubmit = (e: React.FormEvent) => {
       e.preventDefault();
       if (editPrompt.trim()) {

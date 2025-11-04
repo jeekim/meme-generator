@@ -1,28 +1,39 @@
 
 import React, { useRef, useState } from 'react';
 import { MEME_TEMPLATES } from '../constants';
-import type { ImageState } from '../App';
+import type { ImageState } from '../types';
 import { UploadIcon } from './icons';
+import { ERROR_MESSAGES } from '../config';
 
 interface ImageSelectorProps {
   onImageSelect: (imageState: ImageState) => void;
 }
 
+/**
+ * ImageSelector component for choosing a meme image
+ * Allows users to upload custom images or select from predefined templates
+ */
 export function ImageSelector({ onImageSelect }: ImageSelectorProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState<string | null>(null);
 
+  /**
+   * Handles file input changes when user selects a file
+   */
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       if (!file.type.startsWith('image/')) {
-        setError('Please select an image file.');
+        setError(ERROR_MESSAGES.INVALID_FILE_TYPE);
         return;
       }
       processImageFile(file);
     }
   };
 
+  /**
+   * Handles template selection by fetching the template image
+   */
   const handleTemplateClick = async (url: string) => {
     try {
         const response = await fetch(url);
@@ -32,10 +43,13 @@ export function ImageSelector({ onImageSelect }: ImageSelectorProps) {
         processImageFile(file);
     } catch (e) {
         console.error("Failed to fetch template image:", e);
-        setError("Could not load template. Please try another.");
+        setError(ERROR_MESSAGES.TEMPLATE_LOAD_FAILED);
     }
   };
   
+  /**
+   * Processes an image file and extracts its properties
+   */
   const processImageFile = (file: File) => {
     setError(null);
     const reader = new FileReader();
@@ -50,12 +64,12 @@ export function ImageSelector({ onImageSelect }: ImageSelectorProps) {
         });
       };
       img.onerror = () => {
-          setError("The selected file could not be read as an image.");
+          setError(ERROR_MESSAGES.IMAGE_READ_FAILED);
       };
       img.src = e.target?.result as string;
     };
     reader.onerror = () => {
-        setError("Failed to read the selected file.");
+        setError(ERROR_MESSAGES.FILE_READ_FAILED);
     };
     reader.readAsDataURL(file);
   };

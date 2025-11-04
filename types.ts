@@ -1,4 +1,3 @@
-
 export interface MemeTemplate {
   id: string;
   name: string;
@@ -8,4 +7,11 @@ export interface MemeTemplate {
 export interface MemeCaption {
   topText: string;
   bottomText: string;
+}
+
+export interface ImageState {
+  src: string;
+  width: number;
+  height: number;
+  originalFileType: string;
 }

@@ -1,8 +1,9 @@
 
 import React, { useRef, useState } from 'react';
 import { MEME_TEMPLATES } from '../constants';
-import type { ImageState } from '../App';
+import type { ImageState } from '../types';
 import { UploadIcon } from './icons';
+import { ERROR_MESSAGES } from '../config';
 
 interface ImageSelectorProps {
   onImageSelect: (imageState: ImageState) => void;
@@ -16,7 +17,7 @@ export function ImageSelector({ onImageSelect }: ImageSelectorProps) {
     const file = event.target.files?.[0];
     if (file) {
       if (!file.type.startsWith('image/')) {
-        setError('Please select an image file.');
+        setError(ERROR_MESSAGES.INVALID_FILE_TYPE);
         return;
       }
       processImageFile(file);
@@ -32,7 +33,7 @@ export function ImageSelector({ onImageSelect }: ImageSelectorProps) {
         processImageFile(file);
     } catch (e) {
         console.error("Failed to fetch template image:", e);
-        setError("Could not load template. Please try another.");
+        setError(ERROR_MESSAGES.TEMPLATE_LOAD_FAILED);
     }
   };
   
@@ -50,12 +51,12 @@ export function ImageSelector({ onImageSelect }: ImageSelectorProps) {
         });
       };
       img.onerror = () => {
-          setError("The selected file could not be read as an image.");
+          setError(ERROR_MESSAGES.IMAGE_READ_FAILED);
       };
       img.src = e.target?.result as string;
     };
     reader.onerror = () => {
-        setError("Failed to read the selected file.");
+        setError(ERROR_MESSAGES.FILE_READ_FAILED);
     };
     reader.readAsDataURL(file);
   };

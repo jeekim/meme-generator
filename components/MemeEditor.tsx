@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
-import type { ImageState } from '../App';
-import type { MemeCaption } from '../types';
+import type { ImageState, MemeCaption } from '../types';
 import { SparklesIcon, EditIcon, DownloadIcon, BackIcon } from './icons';
 import { Spinner } from './Spinner';
 
